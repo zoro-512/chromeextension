@@ -1,0 +1,76 @@
+.timerBoxMain{
+    display: flex;
+    justify-content: center;
+    width: auto;
+    color: white;
+    font-family: sans-serif;
+  text-align: center;
+   
+}
+.timer-box{
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px;
+}
+
+.play-pause{
+    position: absolute;
+    bottom: 0px;
+    right: 100px;
+     height: 40px;
+    width: 40px;
+    background-color: #71ff67;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Redo{
+    position: absolute;
+    left: 100px;
+    bottom: 0px;
+    height: 40px;
+    width: 40px;
+    background-color: red;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tmr{
+ position: fixed;
+}
+.timer-box{
+    margin-bottom: 80px;
+   position: relative;
+}
+.total{
+    color: rgb(255, 255, 255);
+    background-color: green;
+    height: auto;
+   padding: 10px;
+   border-radius: 20px;
+   text-align: center;
+    width: 80px;
+
+    
+}
+.break{
+   
+    color: rgb(255, 255, 255);
+    background-color: #a5fb9f;
+    height: auto;
+   padding: 10px;
+   border-radius: 20px;
+   text-align: center;
+    width: 80px;
+
+    
+}
+.ctrlButt{
+     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
