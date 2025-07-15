@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "LeetFocus",
+  "version": "1.0.0",
+  "description": "Stay focused while solving LeetCode problems. Block distractions and track problem-solving time.",
+  "permissions": [
+    "storage",
+    "tabs",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://www.youtube.com/*",
+    "https://www.instagram.com/*"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "public/vite.svg"
+    }
+  },
+  "icons": {
+    "16": "public/vite.svg"
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/problems/*"],
+      "js": ["src/content.jsx"]
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://www.instagram.com/*"
+      ],
+      "js": ["src/blocker.js"],
+      "run_at": "document_start"
+    }
+  ]
+
+}
