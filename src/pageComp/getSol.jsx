@@ -1,6 +1,6 @@
-export default async function GetSOln(problemDescription){
- const GEMINI_API_KEY = 'AIzaSyC0LHFtqUZMpkxD1kvdr1M9U3QgY-oKcqU';
-  const model = "gemini-2.0-flash"; // or gemini-pro
+export default async function GetSOln(problemDescription) {
+  const GEMINI_API_KEY = 'AIzaSyC0LHFtqUZMpkxD1kvdr1M9U3QgY-oKcqU';
+  const model = "gemini-2.0-flash";
 
   if (!GEMINI_API_KEY) {
     console.error("Gemini API key is missing.");
@@ -12,10 +12,12 @@ export default async function GetSOln(problemDescription){
   }
 
   const systemPrompt = `
-You are an expert coding assistant helping a user solve LeetCode problems. 
-You receive the full problem description and must  give the full code  with a high-level plan or data structure recommendation.
+You are an expert competitive programmer.
+Only return the full working code that solves the given LeetCode problem.
+Do not include any explanation, comments, or descriptions — just return the complete code wrapped in triple backticks.
 `;
- const userPrompt = `Problem description: ${problemDescription}`;
+
+  const userPrompt = `Problem description: ${problemDescription}`;
 
   try {
     const response = await fetch(
@@ -41,9 +43,9 @@ You receive the full problem description and must  give the full code  with a hi
     }
 
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    return reply?.trim() || "No hint was generated.";
+    return reply?.trim() || "No solution was generated.";
   } catch (error) {
     console.error("Gemini error:", error);
-    return "❌ Could not generate a hint.";
+    return "❌ Could not generate a solution.";
   }
 }

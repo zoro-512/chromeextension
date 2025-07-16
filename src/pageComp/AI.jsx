@@ -22,19 +22,13 @@ const AI = () => {
     </ReactMarkdown>
   );
 
-  const solnText = (
-    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-      {soln}
-    </ReactMarkdown>
-  );
-
   return (
     <div
       className={`leetfocus-box ${expanded ? 'expanded' : 'collapsed'}`}
       onClick={toggleExpand}
     >
       <h4 style={{ margin: 0, cursor: 'pointer' }}>
-        {expanded ? '🔴' : '➕ Need Help'}
+        {expanded ? '🔴 FOCUS' : '➕ Need Help'}
       </h4>
 
       {expanded && (
@@ -83,8 +77,7 @@ const AI = () => {
                 if (sb || loading) return;
                 setLoading(true);
                 GetSOln(description).then(res => {
-                  // Wrap result in markdown code block
-                  setSoln(`\`\`\`javascript\n${res}\n\`\`\``);
+                  setSoln(res);
                   setSb(true);
                   setLoading(false);
                 });
@@ -109,7 +102,20 @@ const AI = () => {
           )}
 
           {!loading && sb && (
-            <div className="leetfocus-markdown">{solnText}</div>
+            <pre
+              style={{
+                backgroundColor: '#1e1e1e',
+                color: '#dcdcdc',
+                padding: '12px',
+                borderRadius: '6px',
+                marginTop: '10px',
+                overflowX: 'auto',
+                fontSize: '13px',
+                lineHeight: '1.5'
+              }}
+            >
+              <code>{soln}</code>
+            </pre>
           )}
         </div>
       )}
