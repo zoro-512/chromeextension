@@ -1,12 +1,22 @@
-# React + Vite
+# ⚡ LeetFocus – Stay Focused While Solving LeetCode
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LeetFocus is a productivity-focused Chrome extension built to help you stay concentrated while solving LeetCode problems. It blocks distracting sites (like YouTube, Instagram), gives intelligent hints and full solutions for problems using Gemini AI, and includes a built-in focus timer with optional breaks.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- ✅ **Distraction Blocker** – Blocks sites like YouTube and Instagram during focus mode  
+- ⏱️ **Pomodoro-style Focus Timer** – Start a session with optional breaks  
+- 💡 **AI Hints** – Get focused hints for any LeetCode problem using Google Gemini API  
+- 📘 **Full Solutions** – View and copy full solutions for the current problem  
+- 🧠 **Minimalist Interface** – Simple popup UI built with React  
+- 🔒 **Local Storage Sync** – Timer and focus state persist between popup open/close
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📦 Installation
+
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/your-username/leetfocus.git
