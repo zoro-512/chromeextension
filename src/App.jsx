@@ -4,7 +4,7 @@ export default function App(){
     <>
     <h1>FOCUS</h1>
     <FocusCard />
-    <span>blocked site</span>
+    <div className="asss">blocked distranction: YouTube and Instagram</div>
     </>
   )
 }

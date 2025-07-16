@@ -1,19 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faRedo } from '@fortawesome/free-solid-svg-icons';
-import React, { useState } from 'react';
 import './tmr.css';
 
-export default function Timer(p) {
-  const [isBreak, setIsBreak] = useState(false);
+export default function Timer({ time, pl, br }) {
   const [isPlaying, setIsPlaying] = useState(true);
-  const [key, setKey] = useState(0);
-  const [br, setBr] = useState(p.br || 0);
+  const [remainingTime, setRemainingTime] = useState(time * 60); // fallback in case background fails
+  const [totalBreaks, setTotalBreaks] = useState(br?.() || 0);
 
-  const focusDuration = p.time * 60; // in seconds
-  const breakDuration = 5 * 60;      // 5 min break
+  // Poll background every second to get remaining time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      chrome.runtime.sendMessage({ type: 'GET_TIME' }, (res) => {
+        if (res?.remaining !== undefined) {
+          setRemainingTime(res.remaining);
+        }
+      });
+    }, 1000);
 
-  const duration = isBreak ? breakDuration : focusDuration;
+    return () => clearInterval(interval);
+  }, []);
+
+  // Reset the timer from background and return to setup
+  const handleReset = () => {
+    chrome.runtime.sendMessage({ type: 'STOP_TIMER' }, () => {
+      setIsPlaying(false);
+      pl(true); // show FocusCard again
+    });
+  };
 
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
@@ -21,40 +36,23 @@ export default function Timer(p) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleReset = () => {
-    setIsPlaying(false);
-    setIsBreak(false);
-    p.pl(true); // Go back to setup screen
-    setKey(prev => prev + 1); // force re-render
-  };
-
-  const handleComplete = () => {
-    if (!isBreak) {
-      // Finished focus -> start break
-      setBr(prev => prev + 1);
-    }
-    setIsBreak(!isBreak); // toggle break/focus
-    setKey(prev => prev + 1); // reset timer
-    return { shouldRepeat: false };
-  };
-
   return (
     <div className='timerBoxMain'>
       <div className='timer-box'>
-        <div>{isBreak ? 'Break Time' : 'Focus Time'}</div>
-        <div>Total breaks: {br}</div>
+        <div>Focus Time</div>
+        <div>Total breaks: {totalBreaks}</div>
 
         <CountdownCircleTimer
-          key={key}
+          key={0}
           isPlaying={isPlaying}
-          duration={duration}
-          onComplete={handleComplete}
+          duration={time * 60}
+          initialRemainingTime={remainingTime}
           colors={['#004777', '#F7B801', '#A30000']}
-          colorsTime={[duration, duration / 2, 10]}
+          colorsTime={[remainingTime, remainingTime / 2, 10]}
           size={150}
           className='tmr'
         >
-          {({ remainingTime }) => formatTime(remainingTime)}
+          {() => formatTime(remainingTime)}
         </CountdownCircleTimer>
 
         <div>

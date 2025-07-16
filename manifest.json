@@ -6,7 +6,9 @@
   "permissions": [
     "storage",
     "tabs",
-    "notifications"
+    "notifications",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
   ],
   "host_permissions": [
     "https://leetcode.com/*",
@@ -29,15 +31,15 @@
     {
       "matches": ["https://leetcode.com/problems/*"],
       "js": ["src/content.jsx"]
-    },
-    {
-      "matches": [
-        "https://www.youtube.com/*",
-        "https://www.instagram.com/*"
-      ],
-      "js": ["src/blocker.js"],
-      "run_at": "document_start"
     }
-  ]
-
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "blockRules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
 }
